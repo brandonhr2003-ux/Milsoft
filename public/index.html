@@ -1,0 +1,350 @@
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milsoft.mx </title>
+    <style>
+        :root {
+            --rosa-premium: #e8a5b8;
+            --rosa-oscuro: #d48da2;
+            --rosa-pastel: #fff0f3;
+            --texto-oscuro: #333;
+            --gris-suave: #f9f9f9;
+            --blanco: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--gris-suave);
+            margin: 0;
+            padding: 20px;
+            color: var(--texto-oscuro);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--texto-oscuro);
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        /* Contenedor de las 4 Categorías Principales */
+        .nav-categorias {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .btn-cat {
+            background-color: var(--blanco);
+            border: 2px solid var(--rosa-premium);
+            color: var(--texto-oscuro);
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cat:hover, .btn-cat.activo {
+            background-color: var(--rosa-premium);
+            color: var(--blanco);
+            box-shadow: 0 4px 10px rgba(232, 165, 184, 0.4);
+        }
+
+      /* CONTENEDOR DE SUBSECCIONES INTERNAS (CORREGIDO) */
+.nav-secciones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px auto 35px auto; /* Centra el bloque y le da espacio arriba y abajo */
+    flex-wrap: wrap; /* Si no caben en pantallas chicas, bajan limpiamente sin encimarse */
+    background-color: var(--rosa-pastel);
+    padding: 12px 20px;
+    border-radius: 15px;
+    max-width: 1000px; /* Evita que se estire feo en monitores grandes */
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.02); /* Un toque sutil de diseño */
+}
+        
+
+        .btn-seccion {
+            background: none;
+            border: none;
+            color: var(--texto-oscuro);
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn-seccion:hover, .btn-seccion.activo {
+            background-color: var(--blanco);
+            color: var(--rosa-oscuro);
+            font-weight: 600;
+        }
+
+        /* Grid de Tarjetas de Productos */
+        .grid-productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tarjeta-producto {
+            background-color: var(--blanco);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .tarjeta-producto:hover {
+            transform: translateY(-5px);
+        }
+
+        .tag-seccion {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #999;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .nombre-producto {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 10px 0;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .disponibles {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .precio {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--rosa-oscuro);
+            margin-bottom: 15px;
+        }
+
+        .btn-agregar {
+            background-color: var(--rosa-premium);
+            color: var(--blanco);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+        }
+
+        .btn-agregar:hover {
+            background-color: var(--rosa-oscuro);
+        }
+
+        /* Mensaje de categoría vacía */
+        .sin-productos {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 40px;
+            color: #888;
+            font-size: 16px;
+        }
+        /* Estilo Coquette para la tienda */
+:root {
+  --fondo-soft: #fff5f7;
+  --rosa-coquette: #f8c8dc;
+  --rosa-fuerte: #e6a0c0;
+  --texto-oscuro: #5a4a4f;
+}
+
+body {
+  background-color: var(--fondo-soft) !important;
+  color: var(--texto-oscuro);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.product-card {
+  background: #ffffff;
+  border-radius: 25px;
+  padding: 20px;
+  box-shadow: 0 8px 15px rgba(248, 200, 220, 0.3);
+  transition: transform 0.3s ease;
+  border: 1px solid #fce4ec;
+  margin: 15px;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+button {
+  background-color: var(--rosa-coquette) !important;
+  border-radius: 50px !important;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+    </style>
+</head>
+<body>
+
+    <h1>Milsoft.mx </h1>
+
+    <div class="nav-categorias" id="menu-categorias"></div>
+
+    <div class="nav-secciones" id="menu-secciones"></div>
+
+    <div class="grid-productos" id="contenedor-productos"></div>
+
+    <script>
+        // Configuración de categorías iniciales
+        const categoriasPrincipales = ["Make Up", "Manicurista", "Estilismo", "Lashista"];
+        let categoriaActiva = "Make Up";
+        let seccionActiva = "TODOS";
+        let todosLosProductos = [];
+
+        // Inicialización al cargar la ventana
+        window.addEventListener('DOMContentLoaded', () => {
+            renderizarBotonesCategorias();
+            obtenerProductosBackend();
+        });
+
+        // Jalar los productos desde tu API de Node.js
+        async function obtenerProductosBackend() {
+            try {
+                const respuesta = await fetch('/api/productos'); // Apunta a tu endpoint existente
+                todosLosProductos = await respuesta.json();
+                
+                // Una vez que tenemos la data, pintamos las secciones y productos del "Make Up" inicial
+                actualizarSeccionesYProductos();
+            } catch (error) {
+                console.error("Error cargando productos:", error);
+                document.getElementById('contenedor-productos').innerHTML = 
+                    `<p class="sin-productos">Error al conectar con el servidor espartano.</p>`;
+            }
+        }
+
+        // Renderizar las 4 macros principales
+        function renderizarBotonesCategorias() {
+            const contenedor = document.getElementById('menu-categorias');
+            contenedor.innerHTML = '';
+
+            categoriasPrincipales.forEach(cat => {
+                const boton = document.createElement('button');
+                boton.textContent = cat;
+                boton.className = `btn-cat ${cat === categoriaActiva ? 'activo' : ''}`;
+                
+                boton.addEventListener('click', () => {
+                    categoriaActiva = cat;
+                    seccionActiva = "TODOS"; // Reseteamos la subsección al cambiar de pestaña
+                    renderizarBotonesCategorias();
+                    actualizarSeccionesYProductos();
+                });
+
+                contenedor.appendChild(boton);
+            });
+        }
+
+        // Controlar el submenú de secciones internas según la categoría madre activa
+        function actualizarSeccionesYProductos() {
+            // Filtrar los productos que pertenecen únicamente a la categoría activa (Ej: Make Up)
+            const productosDeLaCategoria = todosLosProductos.filter(p => p.categoria === categoriaActiva);
+
+            // Obtener una lista limpia y sin repetir de todas las secciones que existen dentro de esta categoría
+            const seccionesUnicas = ["TODOS", ...new Set(productosDeLaCategoria.map(p => p.seccion).filter(Boolean))];
+
+            // Renderizar la barra de subsecciones
+            const contenedorSecciones = document.getElementById('menu-secciones');
+            contenedorSecciones.innerHTML = '';
+
+            // Si la categoría aún no tiene productos (como Manicurista ahorita), ocultamos la barra
+            if (productosDeLaCategoria.length === 0) {
+                contenedorSecciones.style.display = 'none';
+            } else {
+                contenedorSecciones.style.display = 'flex';
+                seccionesUnicas.forEach(secc => {
+                    const botonSecc = document.createElement('button');
+                    botonSecc.textContent = secc;
+                    botonSecc.className = `btn-seccion ${secc === seccionActiva ? 'activo' : ''}`;
+
+                    botonSecc.addEventListener('click', () => {
+                        seccionActiva = secc;
+                        actualizarSeccionesYProductos(); // Re-renderiza para marcar activo el botón y filtrar
+                    });
+
+                    contenedorSecciones.appendChild(botonSecc);
+                });
+            }
+
+            // Filtrar el resultado final por la sección elegida
+            let productosFinales = productosDeLaCategoria;
+            if (seccionActiva !== "TODOS") {
+                productosFinales = productosDeLaCategoria.filter(p => p.seccion === seccionActiva);
+            }
+
+            renderizarTarjetas(productosFinales);
+        }
+
+        // Pintar las tarjetas finales en el grid
+        function renderizarTarjetas(listaProductos) {
+            const grid = document.getElementById('contenedor-productos');
+            grid.innerHTML = '';
+
+            if (listaProductos.length === 0) {
+                grid.innerHTML = `<div class="sin-productos">Próximamente estaremos agregando productos a la sección de ${categoriaActiva}. ¡Espéralo! ✨</div>`;
+                return;
+            }
+
+            listaProductos.forEach(prod => {
+                const tarjeta = document.createElement('div');
+                tarjeta.className = 'tarjeta-producto';
+                tarjeta.innerHTML = `
+                    <div>
+                        <div class="tag-seccion">${prod.seccion || 'General'}</div>
+                        <div class="nombre-producto">${prod.nombre}</div>
+                        <div class="disponibles">Disponibles: ${prod.stock}</div>
+                    </div>
+                    <div>
+                        <div class="precio">$${prod.precio}</div>
+                        <button class="btn-agregar" onclick="agregarAlCarrito(${prod.id})">Añadir a la bolsa 🌸</button>
+                    </div>
+                `;
+                grid.appendChild(tarjeta);
+            });
+        }
+
+        // Tu función para conectar con el sistema del carrito que ya tienes armado
+        function agregarAlCarrito(id) {
+            console.log("Producto añadido al carrito ID:", id);
+            // Aquí puedes integrar la lógica de tu carrito local (localStorage, etc.)
+            if (typeof window.actualizarInterfazCarrito === 'function') {
+                // Si tienes mapeada la función global del carrito en tu otro script, la invocas aquí.
+            }
+        }
+    </script>
+</body>
+</html>
