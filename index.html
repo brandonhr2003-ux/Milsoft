@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Milsoft.mx | The Divine Feminine</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Milsoft.mx</h1>
+        <p>the divine feminine</p>
+        <div class="header-cart">Bolsa de Compra: <span id="contador-carrito">0</span></div>
+    </header>
+
+    <div class="filtros">
+        <button class="btn-filtro" onclick="filtrar('TODOS')">Todos</button>
+        <button class="btn-filtro" onclick="filtrar('MAKE UP')">Make up</button>
+        <button class="btn-filtro" onclick="filtrar('MANICURISTA')">Manicurista</button>
+        <button class="btn-filtro" onclick="filtrar('ESTILISMO')">Estilismo</button>
+        <button class="btn-filtro" onclick="filtrar('LASHISTA')">Lashista</button>
+    </div>
+
+    <div class="grid" id="contenedor-productos"></div>
+
+    <script src="index.js"></script>
+</body>
+</html>
