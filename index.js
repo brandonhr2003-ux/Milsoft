@@ -2,7 +2,7 @@
 
 console.log("Intentando cargar productos...");
 
-fetch('/productos.json') 
+fetch('productos.json') 
     .then(res => {
         console.log("Respuesta recibida, status:", res.status);
         return res.json();
