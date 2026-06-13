@@ -1,0 +1,341 @@
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milsoft.mx | The Divine Feminine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Paleta de colores inspirada en la marca: Rosas pastel, blancos puros y textos suaves */
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: linear-gradient(135deg, #fdf6f6 0%, #fae8eb 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px; 
+            color: #4a3f41;
+        }
+        
+        /* Encabezado Principal */
+        .brand-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .brand-header h1 { 
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            font-weight: 600;
+            color: #d4a3b3; 
+            margin: 0 0 5px 0;
+            letter-spacing: 2px;
+        }
+        .brand-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2em;
+            color: #a88590;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+        
+        /* Indicador flotante del Carrito */
+        .header-cart { 
+            text-align: right; 
+            max-width: 1050px; 
+            margin: 0 auto 30px auto; 
+            font-size: 1.05em;
+            font-weight: 600;
+            color: #8a6d75;
+        }
+        .cart-count { 
+            background: #e8b4b8; 
+            color: white; 
+            padding: 4px 10px; 
+            border-radius: 20px; 
+            font-size: 0.9em;
+            margin-left: 5px;
+            box-shadow: 0 2px 8px rgba(232, 180, 184, 0.4);
+        }
+
+        /* Grid de Productos */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+            gap: 30px; 
+            max-width: 1050px; 
+            margin: 0 auto; 
+        }
+        
+        /* Tarjetas de Cosméticos estilo Premium */
+        .card { 
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(5px);
+            padding: 25px; 
+            border-radius: 20px; 
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 25px rgba(212, 163, 179, 0.15); 
+            text-align: center; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(212, 163, 179, 0.25);
+        }
+        .card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4em;
+            margin: 10px 0;
+            color: #5c4d50;
+        }
+        .category {
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #bfa3ab;
+            margin-bottom: 15px;
+        }
+        .stock-info {
+            font-size: 0.9em;
+            color: #8c767c;
+            background: #fcf0f2;
+            padding: 4px 12px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        .price { 
+            color: #d4a3b3; 
+            font-weight: 600; 
+            font-size: 1.4em; 
+            margin: 15px 0;
+        }
+        
+        /* Botones de Estilo Estético */
+        button { 
+            background: #e8b4b8; 
+            color: white; 
+            border: none; 
+            padding: 12px 20px; 
+            border-radius: 15px; 
+            cursor: pointer; 
+            width: 100%; 
+            font-weight: 600; 
+            font-size: 0.95em;
+            letter-spacing: 0.5px;
+            transition: background 0.3s ease, box-shadow 0.3s ease; 
+            box-shadow: 0 4px 15px rgba(232, 180, 184, 0.2);
+        }
+        button:hover { 
+            background: #d4a3b3; 
+            box-shadow: 0 6px 20px rgba(212, 163, 179, 0.35);
+        }
+
+        /* Sección Detalle del Carrito */
+        .seccion-carrito { 
+            max-width: 650px; 
+            margin: 60px auto 20px auto; 
+            background: rgba(255, 255, 255, 0.9); 
+            padding: 35px; 
+            border-radius: 24px; 
+            box-shadow: 0 15px 40px rgba(212, 163, 179, 0.2); 
+            border: 1px solid rgba(255, 255, 255, 0.7);
+        }
+        .seccion-carrito h2 {
+            font-family: 'Playfair Display', serif;
+            color: #5c4d50;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+        .item-carrito { 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 14px 0; 
+            border-bottom: 1px solid #f5e6e8; 
+            font-size: 0.95em;
+        }
+        
+        .btn-checkout { 
+            background: linear-gradient(135deg, #e8b4b8 0%, #d4a3b3 100%); 
+            margin-top: 25px; 
+            color: white; 
+            font-size: 1em;
+            padding: 14px;
+            box-shadow: 0 5px 20px rgba(212, 163, 179, 0.4);
+        }
+        .btn-checkout:hover {
+            background: linear-gradient(135deg, #d4a3b3 0%, #c292a2 100%); 
+        }
+        .btn-vaciar { 
+            background: transparent; 
+            margin-top: 15px; 
+            color: #a88590; 
+            border: 1px solid #e8b4b8;
+            box-shadow: none;
+        }
+        .btn-vaciar:hover { 
+            background: #fff0f2; 
+            color: #8a6d75;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-cart">
+        🌸 Bolsa de Compra: <span class="cart-count" id="contador-carrito">0</span>
+    </div>
+
+    <div class="brand-header">
+        <h1>Milsoft.mx</h1>
+        <p class="brand-subtitle">the divine feminine</p>
+    </div>
+
+    <div class="grid" id="contenedor-productos"></div>
+
+    <div class="seccion-carrito">
+        <h2>Tu Selección Especial</h2>
+        <div id="lista-carrito">
+            <p style="color: #ba9ea5; text-align: center; font-style: italic;">Tu bolsa está vacía actualmente.</p>
+        </div>
+        <button class="btn-checkout" onclick="procesarCompra()">Confirmar Selección y Pagar 💳</button>
+        <button class="btn-vaciar" onclick="vaciarCarrito()">Limpiar Bolsa 🗑️</button>
+    </div>
+
+    <script>
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        let listaProductosGlobal = []; 
+
+        function actualizarInterfazCarrito() {
+            const contador = document.getElementById('contador-carrito');
+            const listaHTML = document.getElementById('lista-carrito');
+            
+            const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+            contador.innerText = totalItems;
+
+            if (carrito.length === 0) {
+                listaHTML.innerHTML = '<p style="color: #ba9ea5; text-align: center; font-style: italic;">Tu bolsa está vacía actualmente.</p>';
+                return;
+            }
+
+            const dineroTotal = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+
+            let itemsHTML = carrito.map(item => `
+                <div class="item-carrito">
+                    <span><strong style="color: #5c4d50;">${item.nombre}</strong> (x${item.cantidad})</span>
+                    <span style="font-weight: 600; color: #a88590;">$${item.precio * item.cantidad}</span>
+                </div>
+            `).join('');
+
+            itemsHTML += `
+                <div style="display: flex; justify-content: space-between; margin-top: 20px; padding-top: 15px; border-top: 1px solid #e8b4b8; font-weight: 600; font-size: 1.1em;">
+                    <span style="color: #5c4d50;">Monto Total:</span>
+                    <span style="color: #d4a3b3; font-size: 1.2em;">$${dineroTotal}</span>
+                </div>
+            `;
+
+            listaHTML.innerHTML = itemsHTML;
+        }
+
+        async function cargarProductos() {
+            try {
+                const res = await fetch('/api/productos');
+                const productos = await res.json();
+                listaProductosGlobal = productos; 
+                
+                const contenedor = document.getElementById('contenedor-productos');
+                
+                contenedor.innerHTML = productos.map(p => {
+                    const itemEnCarrito = carrito.find(item => item.id === p.id);
+                    const cantidadEnCarrito = itemEnCarrito ? itemEnCarrito.cantidad : 0;
+                    const stockDisponible = p.stock - cantidadEnCarrito;
+
+                    const esAgotado = stockDisponible <= 0;
+                    const textoBoton = esAgotado ? "Agotado temporalmente" : "Añadir a la bolsa 🌸";
+                    const estiloBoton = esAgotado ? "background: #d1c5c7; cursor: not-allowed; box-shadow: none;" : "";
+
+                    return `
+                        <div class="card">
+                            <div class="category">${p.categoria}</div>
+                            <h3>${p.nombre}</h3>
+                            <div class="stock-info">Disponibles: <strong id="stock-${p.id}">${stockDisponible}</strong></div>
+                            <div class="price">$${p.precio}</div>
+                            <button id="btn-${p.id}" onclick="agregarAlCarrito(${p.id}, '${p.nombre}', ${p.precio})" style="${estiloBoton}" ${esAgotado ? 'disabled' : ''}>
+                                ${textoBoton}
+                            </button>
+                        </div>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error("Error al cargar el catálogo estético", error);
+            }
+        }
+
+        function agregarAlCarrito(id, nombre, precio) {
+            const productoOriginal = listaProductosGlobal.find(p => p.id === id);
+            const existe = carrito.find(item => item.id === id);
+            const cantidadActual = existe ? existe.cantidad : 0;
+
+            if (cantidadActual >= productoOriginal.stock) {
+                alert(`Lo sentimos, no hay más existencias disponibles de ${nombre}.`);
+                return;
+            }
+
+            if (existe) {
+                existe.cantidad += 1;
+            } else {
+                carrito.push({ id, nombre, precio, cantidad: 1 });
+            }
+
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            
+            cargarProductos();
+            actualizarInterfazCarrito(); 
+        }
+
+        function vaciarCarrito() {
+            carrito = [];
+            localStorage.removeItem('carrito');
+            cargarProductos(); 
+            actualizarInterfazCarrito();
+        }
+
+        async function procesarCompra() {
+            if (carrito.length === 0) {
+                alert("Por favor, añade productos a la bolsa antes de continuar.");
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/checkout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productosPedido: carrito })
+                });
+
+                const resultado = await res.json();
+                
+                if (resultado.exito) {
+                    alert("¡Pedido Procesado con éxito! ✨\n" + resultado.mensaje + "\nTotal final: $" + resultado.total);
+                    
+                    carrito = [];
+                    localStorage.removeItem('carrito');
+                    
+                    await cargarProductos();
+                    actualizarInterfazCarrito();
+                }
+            } catch (error) {
+                console.error("Error en la pasarela de checkout", error);
+            }
+        }
+
+        cargarProductos();
+        actualizarInterfazCarrito();
+    </script>
+</body>
+</html>
