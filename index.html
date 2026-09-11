@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milsoft.mx | The Divine Feminine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #fdf6f6 0%, #fae8eb 100%); min-height: 100vh; margin: 0; padding: 40px 20px; color: #4a3f41; }
+        
+        /* Menús Laterales (Hamburguesa y Carrito) */
+    .side-menu { 
+    height: 100%; 
+    width: 0; 
+    position: fixed; 
+    z-index: 1000; 
+    top: 0; 
+    left: 0; 
+    background-color: #fff; 
+    overflow-x: hidden; 
+    transition: 0.5s; 
+    padding-top: 60px; 
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1); 
+    width: 0; /* Arrancan cerrados */
+}
+/* Cuando se abren en celular, que ocupen un espacio cómodo sin romper el diseño */
+        .side-menu a { padding: 8px 8px 8px 32px; text-decoration: none; font-size: 20px; color: #d4a3b3; display: block; transition: 0.3s; }
+        
+        /* Panel específico del carrito a la derecha */
+        #side-cart.side-menu { left: auto; right: 0; }
+
+        .menu-icon { font-size: 30px; cursor: pointer; position: fixed; top: 20px; left: 20px; color: #d4a3b3; z-index: 100; }
+        .cart-icon-fixed { position: fixed; top: 20px; right: 20px; cursor: pointer; font-size: 25px; z-index: 100; background: rgba(255, 255, 255, 0.8); padding: 5px 12px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+
+        .brand-header { text-align: center; margin: 40px 0 30px 0; }
+        .brand-header h1 { font-family: 'Playfair Display', serif; font-size: 3em; color: #d4a3b3; margin: 0; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; max-width: 1050px; margin: 0 auto; }
+        .card { background: rgba(255, 255, 255, 0.85); padding: 25px; border-radius: 20px; text-align: center; box-shadow: 0 10px 25px rgba(212, 163, 179, 0.15); }
+        
+        button { background: #e8b4b8; color: white; border: none; padding: 12px 20px; border-radius: 15px; cursor: pointer; width: 100%; margin-top: 10px; font-weight: 600; }
+        button:hover { background: #d4a3b3; }
+        
+        .btn-checkout { background: #d4a3b3; color: white; padding: 14px; width: calc(100% - 40px); margin: 20px; }
+        
+        /* Barra de búsqueda */
+        .search-container { text-align: center; margin-bottom: 30px; }
+        #busqueda { padding: 12px 20px; width: 80%; max-width: 400px; border-radius: 20px; border: 1px solid #d4a3b3; outline: none; background: rgba(255,255,255,0.9); }
+    
+    </style>
+</head>
+<body>
+
+    <!-- Icono del Carrito Flotante (Esquina Superior Derecha) -->
+    <div class="cart-icon-fixed" onclick="toggleCart()">
+        🛍️ <span id="contador-carrito">0</span>
+    </div>
+
+    <!-- Menú de Categorías (Hamburguesa Izquierda) -->
+    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+    <div id="side-menu" class="side-menu">
+        <a href="javascript:void(0)" onclick="toggleMenu()" style="text-align: right; font-size: 30px; padding-right: 20px;">&times;</a>
+        <h3 style="padding-left: 32px; color: #8a6d75;">Categorías</h3>
+        <a href="#" onclick="filtrarCategoria('MAKE UP')">Make Up</a>
+        <a href="#" onclick="filtrarCategoria('LASHISTA')">Lashista</a>
+        <a href="#" onclick="filtrarCategoria('ESTILISMO')">Estilismo</a>
+        <a href="#" onclick="filtrarCategoria('MANICURISTA')">Manicurista</a>
+    </div>
+
+    <!-- Menú de Bolsa (Panel Lateral Derecho) -->
+    <div id="side-cart" class="side-menu">
+        <a href="javascript:void(0)" onclick="toggleCart()" style="text-align: right; font-size: 30px; padding-right: 20px;">&times;</a>
+        <h3 style="padding-left: 32px; color: #8a6d75;">Tu Bolsa</h3>
+        <div id="lista-carrito" style="padding: 20px; color: #4a3f41;">Bolsa vacía.</div>
+        <button class="btn-checkout" onclick="enviarPedidoWhatsApp()">Confirmar Pedido</button>
+    </div>
+
+    <!-- Encabezado de la Marca -->
+    <div class="brand-header">
+        <h1>Milsoft.mx</h1>
+    </div>
+
+    <!-- Barra de búsqueda -->
+    <div class="search-container">
+        <input type="text" id="busqueda" placeholder="Buscar productos..." onkeyup="filtrarBusqueda()">
+    </div>
+
+    <!-- Catálogo de Productos dinámico -->
+    <div class="grid" id="contenedor-productos"></div>
+
+
+    <!-- 🟢 AQUÍ CONECTAMOS TU SCRIPT EXTERNO DONDE TIENES LOS 384 PRODUCTOS -->
+    <script src="script.js"></script>
+
+    <!-- FUNCIONES DE LA PÁGINA -->
+    <script>
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+        function toggleMenu() {
+            const menu = document.getElementById("side-menu");
+            menu.style.width = menu.style.width === "250px" ? "0" : "250px";
+        }
+
+        function toggleCart() {
+            const cart = document.getElementById("side-cart");
+            cart.style.width = cart.style.width === "300px" ? "0" : "300px";
+        }
+
+        function filtrarBusqueda() {
+            const busqueda = document.getElementById('busqueda').value.toUpperCase();
+            const filtrados = listaProductosGlobal.filter(p => p.nombre.toUpperCase().includes(busqueda));
+            renderizar(filtrados);
+        }
+
+        function filtrarCategoria(cat) {
+            if (cat === 'todos') {
+                renderizar(listaProductosGlobal);
+            } else {
+                const filtrados = listaProductosGlobal.filter(p => p.categoria.toUpperCase() === cat.toUpperCase());
+                renderizar(filtrados);
+            }
+            toggleMenu(); 
+        }
+
+        function renderizar(lista = listaProductosGlobal) {
+            const contenedor = document.getElementById('contenedor-productos');
+            if (!contenedor) return;
+            contenedor.innerHTML = lista.map(p => `
+                <div class="card">
+                    <h3>${p.nombre}</h3>
+                    <p style="color: #8a6d75; font-weight: 600;">$${p.precio} MXN</p>
+                    <button onclick="agregar(${p.id}, '${p.nombre}', ${p.precio})">Añadir al Carrito</button>
+                </div>
+            `).join('');
+        }
+
+        function agregar(id, nombre, precio) {
+            let item = carrito.find(i => i.id === id);
+            item ? item.cantidad++ : carrito.push({ id, nombre, precio, cantidad: 1 });
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            actualizarUI();
+        }
+
+        function actualizarUI() {
+            const contador = document.getElementById('contador-carrito');
+            if (contador) contador.innerText = carrito.reduce((a, b) => a + b.cantidad, 0);
+
+            const listaCarrito = document.getElementById('lista-carrito');
+            if (carrito.length === 0) {
+                listaCarrito.innerHTML = "Bolsa vacía.";
+            } else {
+                let total = 0;
+                listaCarrito.innerHTML = carrito.map(i => {
+                    total += i.precio * i.cantidad;
+                    return `<div style="margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">${i.nombre} (x${i.cantidad}) <br><strong>$${i.precio * i.cantidad} MXN</strong></div>`;
+                }).join('');
+                
+                listaCarrito.innerHTML += `<hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;"><strong style="font-size: 1.1em;">Total: $${total} MXN</strong>`;
+            }
+        }
+
+        function enviarPedidoWhatsApp() {
+            if (carrito.length === 0) return alert("Bolsa vacía");
+            let mensaje = "Hola , quiero realizar el siguiente pedido:\n" + carrito.map(i => `- ${i.nombre} (x${i.cantidad})`).join("\n");
+            window.open("https://wa.me/5591679278?text=" + encodeURIComponent(mensaje), '_blank');
+        }
+
+        // Se ejecuta al cargar la página usando la variable que vive en script.js
+        renderizar(listaProductosGlobal);
+        actualizarUI();
+    </script>
+
+</body>
+</html>
